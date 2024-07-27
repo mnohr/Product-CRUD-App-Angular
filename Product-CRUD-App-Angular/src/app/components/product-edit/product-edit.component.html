@@ -1,1 +1,39 @@
-<p>product-edit works!</p>
+<div class="product-form-container">
+    <h1 mat-dialog-title>{{ isEditing ? 'Edit Product' : 'Create New Product' }}</h1>
+    
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Product Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter product name">
+        <mat-hint>Provide a descriptive name for the product.</mat-hint>
+        <mat-error *ngIf="productForm.get('name').hasError('required')">
+          Product name is required.
+        </mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Enter product description"></textarea>
+        <mat-hint>Provide a brief description of the product.</mat-hint>
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Price</mat-label>
+        <input matInput formControlName="price" type="number" placeholder="Enter product price">
+        <mat-hint>Specify the price</mat-hint>
+        <mat-error *ngIf="productForm.get('price').hasError('required')">
+          Price is required.
+        </mat-error>
+        <mat-error *ngIf="productForm.get('price').hasError('min')">
+          Price must be a positive number.
+        </mat-error>
+      </mat-form-field>
+  
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid">
+          {{ isEditing ? 'Update Product' : 'Create Product' }}
+        </button>
+      </div>
+    </form>
+  </div>
+  
