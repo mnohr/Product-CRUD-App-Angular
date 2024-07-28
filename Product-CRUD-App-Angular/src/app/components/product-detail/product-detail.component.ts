@@ -4,7 +4,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
 import { Product } from '../../models/product.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '../../Services/product.service';
+import { ProductService } from '../../services/product.service';
 import { CurrencyFormatPipe } from "../../pipes/currency-format.pipe";
 @Component({
   selector: 'app-product-detail',
