@@ -20,7 +20,7 @@
       <mat-label>Price</mat-label>
       <input matInput formControlName="price" type="number" placeholder="Enter product price" />
       <mat-hint>Specify the price</mat-hint>
-      <mat-error *ngIf="productForm.get('price').hasError('min')">
+      <mat-error *ngIf="productForm.get('price')?.hasError('min')">
         Price must be a positive number.
       </mat-error>
     </mat-form-field>

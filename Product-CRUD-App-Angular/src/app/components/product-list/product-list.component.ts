@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
+import {  Component } from '@angular/core';
+import {  MatTableModule } from '@angular/material/table';
 import { Product } from '../../models/product.model';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +7,10 @@ import { ProductService } from '../../Services/product.service';
 import { ProductSearchComponent } from '../product-search/product-search.component';
 import { MatButtonModule } from '@angular/material/button';
 import { CurrencyFormatPipe } from '../../pipes/currency-format.pipe';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { MatPaginatorModule} from '@angular/material/paginator';
+import { SharedModule } from '../../Shared/shared.modules';
 
 @Component({
   selector: 'app-product-list',
@@ -17,12 +21,15 @@ import { CurrencyFormatPipe } from '../../pipes/currency-format.pipe';
     ProductSearchComponent,
     MatButtonModule,
     CurrencyFormatPipe,
+    CommonModule,
+    MatPaginatorModule,
+    SharedModule
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
 })
 
-export class ProductListComponent {
+export class ProductListComponent{
   displayedColumns: string[] = [
     'id',
     'name',
@@ -30,16 +37,31 @@ export class ProductListComponent {
     'price',
     'actions',
   ];
+  
 
   products: Product[] = [];
   filteredProducts: Product[] = [];
-  constructor(private router: Router, private productService: ProductService) {}
+  errorMessage: string = '';
+
+  constructor(private router: Router, private productService: ProductService,private snackBar: MatSnackBar) {
+    
+  }
+
 
   ngOnInit() {
     this.productService.getProducts().subscribe((products) => {
       this.products = products;
       this.filteredProducts = products;
+    },
+    (error: string) => {
+      this.errorMessage = error;
+      this.snackBar.open(this.errorMessage, 'Close', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      });
     });
+
   }
 
   createProduct(path: string) {
