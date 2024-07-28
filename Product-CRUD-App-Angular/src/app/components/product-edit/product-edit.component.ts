@@ -6,6 +6,7 @@ import { Product } from '../../models/product.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { ProductService } from '../../Services/product.service';
 
 @Component({
   selector: 'app-product-edit',
@@ -29,7 +30,9 @@ export class ProductEditComponent {
       price: 23423
     }
 
-  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute,) {
+  constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute,
+    private productService: ProductService
+  ) {
 
   }
 
@@ -49,26 +52,33 @@ export class ProductEditComponent {
   }
 
   loadProduct(): void {
-    // todo: get data from api 
-    this.productForm.patchValue(this.product);
+    if (this.productId !== null) {
+      this.productService.getProductById(this.productId).subscribe(product => {
+        this.productForm.patchValue(product);
+      });
+    }
   }
 
   onSubmit(): void {
     if (this.productForm.invalid) {
       return;
     }
+
     const product: Product = this.productForm.value;
-    if (this.isEditing) {
-      this.router.navigate(['/products']);
+
+    if (this.isEditing && this.productId !== null) {
+      this.productService.updateProduct(product).subscribe(() => {
+        this.router.navigate(['/products']);
+      });
     } else {
-      this.router.navigate(['/products']);
+      this.productService.createProduct(product).subscribe(() => {
+        this.router.navigate(['/products']);
+      });
     }
   }
 
-  // onSubmit(): void {
-  //   if (this.productForm.valid) {
-  //     const product: Product = this.productForm.value;
-  //     console.log(product);
-  //   }
-  // }
+  Cancel(){
+    this.router.navigate(['/products']);
+  }
+
 }
