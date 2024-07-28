@@ -3,34 +3,43 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
 import { Product } from '../../models/product.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from '../../Services/product.service';
+import { CurrencyFormatPipe } from "../../pipes/currency-format.pipe";
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [MatCardModule, MatChipsModule, MatProgressBarModule],
+  imports: [MatCardModule, MatChipsModule, MatProgressBarModule, CurrencyFormatPipe],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })
 export class ProductDetailComponent {
-  longText = `The Chihuahua is a Mexican breed of toy dog. It is named for the
-  Mexican state of Chihuahua and is among the smallest of all dog breeds. It is
-  usually kept as a companion animal or for showing.`;
   productId!: number;
-  product : Product = 
-    {
-      id: 1,
-      name: 'harry',
-      description: 'nice',
-      price: 23423
-    }
+  product: Product = {
+    id: 0,
+    name: '',
+    price: 0,
+    description: ''
+  };
 
-  constructor(private route: ActivatedRoute){
+  constructor(private route: ActivatedRoute,private productService: ProductService,private router: Router){
 
   } 
   ngOnInit(): void {
     this.productId =  +this.route.snapshot.paramMap.get('id')!;
-    // TODO: get data from api for product id
+    if(this.productId !== null){
+      this.loadProductDetails(this.productId);
+    }
     
   }
 
+  loadProductDetails(id:number){
+    this.productService.getProductById(id).subscribe(res => {
+      this.product = res;
+    })
+  }
+
+  back(){
+    this.router.navigate(['/products']);
+  }
 }

@@ -5,3 +5,19 @@
   .product-card-footer {
     padding: 16px;
   }
+
+  .mat-mdc-card-header {
+    display: flex;
+    padding: 16px 16px 0;
+    flex-direction: column;
+  }
+
+  .product-back{
+    margin-left: 5px;
+    
+  }
+
+  .product-back > mat-chip {
+    cursor: pointer;
+    pointer-events: visible;
+  }
