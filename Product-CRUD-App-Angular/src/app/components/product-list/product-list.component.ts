@@ -3,14 +3,14 @@ import {  MatTableModule } from '@angular/material/table';
 import { Product } from '../../models/product.model';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { ProductService } from '../../Services/product.service';
+import { ProductService } from '../../services/product.service';
 import { ProductSearchComponent } from '../product-search/product-search.component';
 import { MatButtonModule } from '@angular/material/button';
 import { CurrencyFormatPipe } from '../../pipes/currency-format.pipe';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule} from '@angular/material/paginator';
-import { SharedModule } from '../../Shared/shared.modules';
+import { SharedModule } from '../../shared/shared.modules';
 
 @Component({
   selector: 'app-product-list',

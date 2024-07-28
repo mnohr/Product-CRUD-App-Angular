@@ -6,7 +6,7 @@ import { Product } from '../../models/product.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { ProductService } from '../../Services/product.service';
+import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-product-edit',
