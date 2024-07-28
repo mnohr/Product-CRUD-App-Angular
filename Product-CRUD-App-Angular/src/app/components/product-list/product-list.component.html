@@ -4,34 +4,36 @@
     <app-product-search (searchEvent)="onSearch($event)"></app-product-search>
   </div>
 
-
-  
-  <table width="50%" mat-table [dataSource]="filteredProducts" class="mat-elevation-z8 product-table">
+  <div class="mat-elevation-z8">
+  <div *ngIf="filteredProducts.length === 0" class="no-data-message">
+    No data in the list.
+  </div>
+  <table *ngIf="filteredProducts.length > 0" width="50%" mat-table [dataSource]="filteredProducts" class="mat-elevation-z8 product-table">
 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>No.</th>
-      <td  mat-cell *matCellDef="let element">{{element.id}}</td>
+      <td  mat-cell *matCellDef="let element" appHighlight="lightblue">{{element.id}}</td>
     </ng-container>
   
  
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{element.name}}</td>
+      <td mat-cell *matCellDef="let element" appHighlight="lightblue">{{element.name}}</td>
     </ng-container>
   
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef>description</th>
-      <td mat-cell *matCellDef="let element">{{element.description}}</td>
+      <td mat-cell *matCellDef="let element" appHighlight="lightblue">{{element.description}}</td>
     </ng-container>
   
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef>price</th>
-      <td mat-cell *matCellDef="let element">{{element.price | currencyFormat}}</td>
+      <td mat-cell *matCellDef="let element" appHighlight="lightblue">{{element.price | currencyFormat}}</td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Actions</th>
-      <td mat-cell *matCellDef="let element">
+      <td mat-cell *matCellDef="let element" appHighlight="lightblue">
         <button mat-icon-button (click)="viewProduct(element)">
           <mat-icon>visibility</mat-icon>
         </button>
@@ -47,4 +49,4 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  
+</div>

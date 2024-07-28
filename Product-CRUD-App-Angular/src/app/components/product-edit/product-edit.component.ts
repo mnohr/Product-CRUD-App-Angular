@@ -7,14 +7,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ProductService } from '../../Services/product.service';
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-product-edit',
   standalone: true,
   imports: [ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule],
+    MatButtonModule,
+    CommonModule],
   templateUrl: './product-edit.component.html',
   styleUrl: './product-edit.component.css'
 })
