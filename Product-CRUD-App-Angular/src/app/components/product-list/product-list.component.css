@@ -1,0 +1,17 @@
+.product-table {
+  width: 100%;
+}
+
+.product-container {
+  padding-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+}
+
+.product-button {
+  margin: 10px;
+}
+
+td.mat-mdc-cell.mdc-data-table__cell.cdk-cell.cdk-column-description.mat-column-description {
+  width: 50%;
+}
