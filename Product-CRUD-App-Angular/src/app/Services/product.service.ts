@@ -10,7 +10,6 @@ import { environment } from '../environments/environment';
 export class ProductService {
   private url = `${environment.apiUrl}Products`;
 
-
   constructor(private http: HttpClient) { }
 
   getProducts(): Observable<Product[]> {
@@ -32,4 +31,5 @@ export class ProductService {
   deleteProduct(id: number): Observable<void> {
     return this.http.delete<void>(`${this.url}/${id}`);
   }
+
 }
